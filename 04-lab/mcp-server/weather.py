@@ -12,6 +12,14 @@ mcp = FastMCP("weather", host="0.0.0.0", port=port)
 WEATHERAPI_BASE = "https://api.weatherapi.com/v1"
 USER_AGENT = "weather-app/1.0"
 
+# Load environment variables from .env file if it exists
+if os.path.exists(".env"):
+    with open(".env") as f:
+        for line in f:
+            if "=" in line and not line.startswith("#"):
+                k, v = line.strip().split("=", 1)
+                os.environ[k.strip()] = v.strip().strip("'\"")
+
 # Get API key from environment variable
 API_KEY = os.getenv("WEATHERAPI_KEY")
 
